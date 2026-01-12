@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 QUARTZ_DIR="/usr/src/app/quartz"
 VAULT_DIR="/vault"

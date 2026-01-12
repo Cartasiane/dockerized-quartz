@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Directory where the Obsidian notes are located
 WATCH_DIR="/vault"
@@ -45,7 +46,7 @@ schedule_build() {
 }
 
 # Watch the directory for changes
-inotifywait -m -e modify,move,create,delete --exclude '.*\.swp$' --format '%w%f' $WATCH_DIR | \
+inotifywait -m -r -e modify,move,create,delete --exclude '.*\.swp$' --format '%w%f' "$WATCH_DIR" | \
 while read file; do
     if [[ "$file" =~ \.md$ && "$file" != *"Untitled.md"* ]]; then
         LAST_CHANGE=$(date +%s)

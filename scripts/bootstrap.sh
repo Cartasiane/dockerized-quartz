@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 DEFAULT_REPO="https://github.com/jackyzha0/quartz.git"
 QUARTZ_DIR="/usr/src/app/quartz"
