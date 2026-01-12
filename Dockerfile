@@ -26,8 +26,8 @@ COPY package-lock.json /usr/src/app/
 
 RUN npm ci --omit=dev
 
-# Copy docs that will serve as an example vault content if no vault volume provided
-COPY /docs /vault
+# Copy docs as example vault content (will only be used if no vault is mounted)
+COPY /docs /usr/src/app/example-vault
 
 # Expose port 80 for Nginx
 EXPOSE 80

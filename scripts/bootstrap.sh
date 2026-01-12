@@ -3,12 +3,22 @@ set -euo pipefail
 
 DEFAULT_REPO="https://github.com/jackyzha0/quartz.git"
 QUARTZ_DIR="/usr/src/app/quartz"
+EXAMPLE_VAULT="/usr/src/app/example-vault"
 AUTO_REBUILD=${AUTO_REBUILD:-true}
 
 handle_error() {
   echo "Error: $1"
   exit 1
 }
+
+# Check if /vault exists and has content, if not use example vault
+if [ ! -d "/vault" ] || [ -z "$(ls -A /vault 2>/dev/null)" ]; then
+    echo "/vault is empty or doesn't exist. Using example vault..."
+    mkdir -p /vault
+    cp -r "$EXAMPLE_VAULT"/* /vault/
+else
+    echo "/vault contains content. Using mounted vault."
+fi
 
 # Check if the /etc/nginx directory is empty
 if [ ! "$(ls -A /etc/nginx)" ]; then
