@@ -4,7 +4,14 @@ set -euo pipefail
 DEFAULT_REPO="https://github.com/jackyzha0/quartz.git"
 QUARTZ_DIR="/usr/src/app/quartz"
 EXAMPLE_VAULT="/usr/src/app/example-vault"
+
+# Set defaults for optional environment variables
 AUTO_REBUILD=${AUTO_REBUILD:-true}
+GIT_REPO=${GIT_REPO:-}
+GIT_BRANCH=${GIT_BRANCH:-}
+REBUILD_WEBHOOK_SECRET=${REBUILD_WEBHOOK_SECRET:-}
+NOTIFY_TARGET=${NOTIFY_TARGET:-}
+VAULT_DO_GIT_PULL_ON_UPDATE=${VAULT_DO_GIT_PULL_ON_UPDATE:-false}
 
 handle_error() {
   echo "Error: $1"
@@ -48,7 +55,7 @@ else
   git clone $REPO $QUARTZ_DIR
 
   # Check if there's a custom branch to checkout
-  if [ -n "$GIT_BRANCH" ]; then
+  if [ -n "${GIT_BRANCH}" ]; then
     echo "Checking out custom branch: $GIT_BRANCH"
     cd $QUARTZ_DIR && git checkout $GIT_BRANCH
   fi

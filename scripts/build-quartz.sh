@@ -4,6 +4,10 @@ set -euo pipefail
 QUARTZ_DIR="/usr/src/app/quartz"
 VAULT_DIR="/vault"
 
+# Set defaults for optional environment variables
+VAULT_DO_GIT_PULL_ON_UPDATE=${VAULT_DO_GIT_PULL_ON_UPDATE:-false}
+NOTIFY_TARGET=${NOTIFY_TARGET:-}
+
 if [ "$VAULT_DO_GIT_PULL_ON_UPDATE" = true ]; then
   echo "Executing git pull in /vault directory"
   cd $VAULT_DIR
