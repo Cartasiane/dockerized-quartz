@@ -1,8 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
-# Directory where the Obsidian notes are located
-WATCH_DIR="/vault"
+# Set defaults for optional environment variables
+CONTENT_FOLDER=${CONTENT_FOLDER:-}
+
+# Directory where the notes are located
+if [ -n "$CONTENT_FOLDER" ]; then
+  WATCH_DIR="/vault/${CONTENT_FOLDER}"
+  echo "Watching subfolder: $WATCH_DIR"
+else
+  WATCH_DIR="/vault"
+fi
 
 BUILD_SCRIPT="/usr/src/app/scripts/build-quartz.sh"
 
